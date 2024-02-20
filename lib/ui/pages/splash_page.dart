@@ -62,21 +62,21 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: whiteColor,
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: const Color(0xffD0D0D0),
-                  ),
-                  child: const Text(
-                    'GET STARTED',
-                    style: bodySemiBold,
-                  ),
-                ),
+                // const SizedBox(
+                //   height: 40,
+                // ),
+                // Container(
+                //   padding:
+                //       const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(30),
+                //     color: const Color(0xffD0D0D0),
+                //   ),
+                //   child: const Text(
+                //     'GET STARTED',
+                //     style: bodySemiBold,
+                //   ),
+                // ),
               ],
             ),
             // : const CircularProgressIndicator(),

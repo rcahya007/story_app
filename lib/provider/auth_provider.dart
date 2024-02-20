@@ -16,7 +16,12 @@ class AuthProvider extends ChangeNotifier {
     isLoadingLogin = true;
     notifyListeners();
     final userState = await authRepository.getUser();
-    if (user.email == userState!.email && user.password == userState.password) {
+    if (userState == null) {
+      isLoadingLogin = false;
+      notifyListeners();
+      return false;
+    }
+    if (user.email == userState.email && user.password == userState.password) {
       await authRepository.login();
     }
     isLoggedIn = await authRepository.isLoggedIn();
