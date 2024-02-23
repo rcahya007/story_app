@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:story_app/core/styles.dart';
 import 'package:story_app/gen/assets.gen.dart';
-import 'package:story_app/model/user_model.dart';
+import 'package:story_app/model/request/user_register_request_model.dart';
 import 'package:story_app/provider/auth_provider.dart';
 import 'package:story_app/ui/widgets/button_action.dart';
 import 'package:story_app/ui/widgets/input_text_custom.dart';
@@ -13,10 +13,10 @@ class RegisterPage extends StatefulWidget {
   final Function() onLogin;
 
   const RegisterPage({
-    Key? key,
+    super.key,
     required this.onRegister,
     required this.onLogin,
-  }) : super(key: key);
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -119,16 +119,32 @@ class _RegisterPageState extends State<RegisterPage> {
                                 text: 'SIGN IN',
                                 onTap: () async {
                                   if (registerKey.currentState!.validate()) {
-                                    final UserModel user = UserModel(
+                                    final UserRegisterRequestModel user =
+                                        UserRegisterRequestModel(
                                       name: nameC.text,
                                       email: emailC.text,
                                       password: passC.text,
                                     );
+
                                     final authRead =
                                         context.read<AuthProvider>();
                                     final result =
-                                        await authRead.saveUser(user);
-                                    if (result) widget.onRegister();
+                                        await authRead.register(user);
+                                    if (result.error == false) {
+                                      widget.onRegister();
+                                    } else {
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(result.message!),
+                                            duration: const Duration(
+                                              seconds: 1,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
                                   }
                                 },
                               ),

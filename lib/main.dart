@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/db/auth_repository.dart';
 import 'package:story_app/provider/auth_provider.dart';
+import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/routes/route_information_parser.dart';
 import 'package:story_app/routes/router_delegate.dart';
 import 'common/url_strategy.dart';
@@ -36,11 +37,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => authProvider,
-      child: MaterialApp.router(
-        title: 'Story App',
-        routerDelegate: myRouterDelegate,
-        routeInformationParser: myRouteInformationParser,
-        backButtonDispatcher: RootBackButtonDispatcher(),
+      child: ChangeNotifierProvider(
+        create: (context) => StoriesProvider(authRepository: AuthRepository()),
+        child: MaterialApp.router(
+          title: 'Story App',
+          routerDelegate: myRouterDelegate,
+          routeInformationParser: myRouteInformationParser,
+          backButtonDispatcher: RootBackButtonDispatcher(),
+        ),
       ),
     );
   }

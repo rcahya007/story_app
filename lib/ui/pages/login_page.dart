@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:story_app/core/styles.dart';
 import 'package:story_app/gen/assets.gen.dart';
-import 'package:story_app/model/user_model.dart';
+import 'package:story_app/model/request/user_login_request_model.dart';
 import 'package:story_app/provider/auth_provider.dart';
 import 'package:story_app/ui/widgets/button_action.dart';
 import 'package:story_app/ui/widgets/input_text_custom.dart';
@@ -15,10 +15,10 @@ class LoginPage extends StatefulWidget {
   final Function() onRegister;
 
   const LoginPage({
-    Key? key,
+    super.key,
     required this.onLogin,
     required this.onRegister,
-  }) : super(key: key);
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -116,9 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                                 text: 'LOG IN',
                                 onTap: () async {
                                   if (formKey.currentState!.validate()) {
-                                    final scaffoldMessenger =
-                                        ScaffoldMessenger.of(context);
-                                    final UserModel user = UserModel(
+                                    final UserLoginRequestModel user =
+                                        UserLoginRequestModel(
                                       email: emailC.text,
                                       password: passC.text,
                                     );
@@ -126,15 +125,20 @@ class _LoginPageState extends State<LoginPage> {
                                         context.read<AuthProvider>();
 
                                     final result = await authRead.login(user);
-                                    if (result) {
+                                    if (result.error == false) {
                                       widget.onLogin();
                                     } else {
-                                      scaffoldMessenger.showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              "Your email or password is invalid"),
-                                        ),
-                                      );
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(result.message!),
+                                            duration: const Duration(
+                                              seconds: 1,
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     }
                                   }
                                 },

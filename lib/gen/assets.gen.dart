@@ -21,6 +21,9 @@ class $AssetsIconGen {
   /// File path: assets/icon/Category.svg
   String get category => 'assets/icon/Category.svg';
 
+  /// File path: assets/icon/Chat-fill.svg
+  String get chatFill => 'assets/icon/Chat-fill.svg';
+
   /// File path: assets/icon/Chat.svg
   String get chat => 'assets/icon/Chat.svg';
 
@@ -84,6 +87,9 @@ class $AssetsIconGen {
   /// File path: assets/icon/chevron-right 2.svg
   String get chevronRight2 => 'assets/icon/chevron-right 2.svg';
 
+  /// File path: assets/icon/eye.svg
+  String get eye => 'assets/icon/eye.svg';
+
   /// File path: assets/icon/facebook 1.svg
   String get facebook1 => 'assets/icon/facebook 1.svg';
 
@@ -95,6 +101,9 @@ class $AssetsIconGen {
 
   /// File path: assets/icon/heart 1.svg
   String get heart1 => 'assets/icon/heart 1.svg';
+
+  /// File path: assets/icon/heart fill.svg
+  String get heartFill => 'assets/icon/heart fill.svg';
 
   /// File path: assets/icon/ic24-google-plus.svg
   String get ic24GooglePlus => 'assets/icon/ic24-google-plus.svg';
@@ -119,6 +128,7 @@ class $AssetsIconGen {
         camera,
         categoryCopy,
         category,
+        chatFill,
         chat,
         delete,
         editSquare,
@@ -140,10 +150,12 @@ class $AssetsIconGen {
         upload,
         arrowLeft1,
         chevronRight2,
+        eye,
         facebook1,
         facebookFill,
         globe1,
         heart1,
+        heartFill,
         ic24GooglePlus,
         logo,
         notificationFill,

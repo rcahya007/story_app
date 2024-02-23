@@ -1,21 +1,37 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:story_app/db/auth_repository.dart';
+import 'package:story_app/model/response/user_login_response_model.dart';
 
 import 'package:story_app/provider/auth_provider.dart';
 
 class UserProfilePage extends StatefulWidget {
   final Function() onLogout;
   const UserProfilePage({
-    Key? key,
+    super.key,
     required this.onLogout,
-  }) : super(key: key);
+  });
 
   @override
   State<UserProfilePage> createState() => _UserProfilePageState();
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
+  UserLoginResponseModel? user;
+
+  @override
+  void initState() {
+    super.initState();
+    getDataLocal();
+  }
+
+  void getDataLocal() async {
+    final dataUser = await AuthRepository().getUser();
+    setState(() {
+      user = dataUser;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final authWatch = context.watch<AuthProvider>();
@@ -28,7 +44,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text('User Profile Page'),
-            const Text('Nama '),
+            user != null
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(user!.loginResult!.name!),
+                    ],
+                  )
+                : const CircularProgressIndicator(),
             ElevatedButton(
               onPressed: () async {
                 final authRead = context.read<AuthProvider>();

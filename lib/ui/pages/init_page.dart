@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,11 +8,15 @@ import 'package:story_app/ui/pages/home_page.dart';
 import 'package:story_app/ui/pages/user_profile_page.dart';
 
 class InitPage extends StatefulWidget {
-  final Function() onLogout;
+  final dynamic Function() onLogout;
+  final dynamic Function(String) onTapped;
+  final dynamic Function() onPostStories;
   const InitPage({
-    Key? key,
+    super.key,
     required this.onLogout,
-  }) : super(key: key);
+    required this.onTapped,
+    required this.onPostStories,
+  });
 
   @override
   State<InitPage> createState() => _InitPageState();
@@ -26,8 +29,11 @@ class _InitPageState extends State<InitPage> {
   @override
   void initState() {
     super.initState();
+
     pages = [
-      const HomePage(),
+      HomePage(
+        onTapped: widget.onTapped,
+      ),
       const DiscoverPage(),
       const ActivityPage(),
       UserProfilePage(
@@ -116,7 +122,7 @@ class _InitPageState extends State<InitPage> {
         child: FittedBox(
           child: FloatingActionButton(
             shape: const CircleBorder(),
-            onPressed: () {},
+            onPressed: () => widget.onPostStories(),
             tooltip: 'Add Stories',
             elevation: 2.0,
             child: SvgPicture.asset(

@@ -22,6 +22,8 @@ class MyRouteInformationParser
         return PageConfiguration.register();
       } else if (first == 'splash') {
         return PageConfiguration.splash();
+      } else if (first == 'upload') {
+        return PageConfiguration.uploadStories();
       } else {
         return PageConfiguration.unknown();
       }
@@ -30,7 +32,7 @@ class MyRouteInformationParser
       final first = uri.pathSegments[0].toLowerCase();
       final second = uri.pathSegments[1].toLowerCase();
       final storiesId = int.tryParse(second) ?? 0;
-      if (first == 'quote' && (storiesId >= 1 && storiesId <= 5)) {
+      if (first == 'stories' && (storiesId >= 1 && storiesId <= 5)) {
         return PageConfiguration.detailStories(second);
       } else {
         return PageConfiguration.unknown();
@@ -55,6 +57,8 @@ class MyRouteInformationParser
     } else if (configuration.isDetailPage) {
       return RouteInformation(
           uri: Uri.parse('/stories/${configuration.storiesId}'));
+    } else if (configuration.isUploadStoriesPage) {
+      return RouteInformation(uri: Uri.parse('/upload'));
     } else {
       return null;
     }

@@ -1,10 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:story_app/model/user_model.dart';
+import 'package:story_app/model/response/user_login_response_model.dart';
 
 class AuthRepository {
   final String stateKey = 'state';
   final String userKey = "user";
 
+  // STATE
   Future<bool> isLoggedIn() async {
     final preferences = await SharedPreferences.getInstance();
     await Future.delayed(const Duration(seconds: 2));
@@ -23,7 +24,8 @@ class AuthRepository {
     return preferences.setBool(stateKey, false);
   }
 
-  Future<bool> saveUser(UserModel user) async {
+  // USER
+  Future<bool> saveUser(UserLoginResponseModel user) async {
     final preferences = await SharedPreferences.getInstance();
     await Future.delayed(const Duration(seconds: 2));
     return preferences.setString(userKey, user.toJson());
@@ -35,13 +37,12 @@ class AuthRepository {
     return preferences.setString(userKey, "");
   }
 
-  Future<UserModel?> getUser() async {
+  Future<UserLoginResponseModel?> getUser() async {
     final preferences = await SharedPreferences.getInstance();
-    await Future.delayed(const Duration(seconds: 2));
     final json = preferences.getString(userKey) ?? "";
-    UserModel? user;
+    UserLoginResponseModel? user;
     try {
-      user = UserModel.fromJson(json);
+      user = UserLoginResponseModel.fromJson(json);
     } catch (e) {
       user = null;
     }

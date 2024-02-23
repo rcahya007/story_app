@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:story_app/db/auth_repository.dart';
 import 'package:story_app/model/page_configuration.dart';
+import 'package:story_app/provider/stories_provider.dart';
+import 'package:story_app/ui/pages/detail_stories.dart';
 import 'package:story_app/ui/pages/init_page.dart';
 import 'package:story_app/ui/pages/login_page.dart';
+import 'package:story_app/ui/pages/post_stories.dart';
 import 'package:story_app/ui/pages/register_page.dart';
 import 'package:story_app/ui/pages/splash_page.dart';
 
@@ -17,6 +21,7 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
   bool isProfile = false;
   bool? isUnknown;
   String? selectedStories;
+  bool isUploadStories = false;
 
   MyRouterDelegate(this.authRepository)
       : _navigatorKey = GlobalKey<NavigatorState>() {
@@ -48,6 +53,10 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
       isUnknown = false;
       isRegister = false;
       selectedStories = configuration.storiesId.toString();
+    } else if (configuration.isUploadStoriesPage) {
+      isUnknown = false;
+      isRegister = false;
+      isUploadStories = true;
     } else {
       print(' Could not set new route');
     }
@@ -68,6 +77,8 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
       return PageConfiguration.home();
     } else if (selectedStories != null) {
       return PageConfiguration.detailStories(selectedStories!);
+    } else if (isUploadStories == true) {
+      return PageConfiguration.uploadStories();
     } else {
       return null;
     }
@@ -110,16 +121,40 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
           ),
       ];
 
-  get _loggedInStack => [
+  List<Page> get _loggedInStack => [
         MaterialPage(
           key: const ValueKey('HomePage'),
-          child: InitPage(
-            onLogout: () {
-              isLoggedIn = false;
-              notifyListeners();
-            },
+          child: ChangeNotifierProvider(
+            create: (context) =>
+                StoriesProvider(authRepository: authRepository),
+            child: InitPage(
+              onLogout: () {
+                isLoggedIn = false;
+                notifyListeners();
+              },
+              onTapped: (String storiesId) {
+                selectedStories = storiesId;
+                notifyListeners();
+              },
+              onPostStories: () {
+                isUploadStories = true;
+                notifyListeners();
+              },
+            ),
           ),
         ),
+        if (isUploadStories == true)
+          const MaterialPage(
+            key: ValueKey("UploadStories"),
+            child: PostStories(),
+          ),
+        if (selectedStories != null)
+          MaterialPage(
+            key: ValueKey("DetailStories-$selectedStories"),
+            child: DetailStories(
+              idStories: selectedStories,
+            ),
+          ),
       ];
 
   @override
@@ -141,6 +176,8 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
           return false;
         }
         isRegister = false;
+        selectedStories = null;
+        isUploadStories = false;
         notifyListeners();
         return true;
       },
