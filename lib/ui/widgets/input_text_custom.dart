@@ -13,13 +13,13 @@ class InputTextCustom extends StatefulWidget {
   bool? obscureText;
 
   InputTextCustom({
-    Key? key,
+    super.key,
     this.hintText,
     required this.isPassword,
     required this.controller,
     this.validator,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   State<InputTextCustom> createState() => _InputTextCustomState();

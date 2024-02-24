@@ -11,18 +11,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // bool isSelected = false;
-
-  // @override
-  // void initState() {
-  //   Future.delayed(const Duration(seconds: 3), () {
-  //     setState(() {
-  //       isSelected = true;
-  //     });
-  //   });
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

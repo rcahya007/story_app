@@ -59,9 +59,7 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
       isUnknown = false;
       isRegister = false;
       isUploadStories = true;
-    } else {
-      print(' Could not set new route');
-    }
+    } else {}
     notifyListeners();
   }
 
