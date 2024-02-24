@@ -17,6 +17,8 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   http: ^1.2.1
+  image: ^4.1.7
+  image_picker: ^1.0.7
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   timeago: ^3.6.1

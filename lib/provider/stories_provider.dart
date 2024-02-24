@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:story_app/core/variables.dart';
 import 'package:story_app/db/auth_repository.dart';
 import 'package:story_app/model/response/stories_detail_response_model.dart';
-import 'package:story_app/model/response/stories_response_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:story_app/model/response/stories_response_model.dart';
 
-class StoriesProvider extends ChangeNotifier {
+class StoriesProvider with ChangeNotifier {
   final AuthRepository authRepository;
-  StoriesProvider({required this.authRepository});
+  StoriesProvider({required this.authRepository}) {
+    getStories();
+  }
 
   bool isLoadingStories = false;
+  List<ListStory> _dataStories = [];
 
-  Future<StoriesResponseModel> getStories() async {
+  List<ListStory> get dataStories => _dataStories;
+
+  Future<void> getStories() async {
     isLoadingStories = true;
+    notifyListeners();
     final user = await authRepository.getUser();
 
     final response = await http.get(
@@ -23,12 +29,12 @@ class StoriesProvider extends ChangeNotifier {
     );
     if (response.statusCode == 200) {
       isLoadingStories = false;
+      _dataStories = StoriesResponseModel.fromJson(response.body).listStory!;
       notifyListeners();
-      return StoriesResponseModel.fromJson(response.body);
     } else {
       isLoadingStories = false;
+      _dataStories = [];
       notifyListeners();
-      return StoriesResponseModel.fromJson(response.body);
     }
   }
 

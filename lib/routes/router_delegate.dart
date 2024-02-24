@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:story_app/data/api/api_service.dart';
 import 'package:story_app/db/auth_repository.dart';
 import 'package:story_app/model/page_configuration.dart';
-import 'package:story_app/provider/stories_provider.dart';
+import 'package:story_app/provider/post_page_provider.dart';
+import 'package:story_app/provider/upload_provider.dart';
 import 'package:story_app/ui/pages/detail_stories.dart';
 import 'package:story_app/ui/pages/init_page.dart';
 import 'package:story_app/ui/pages/login_page.dart';
@@ -124,29 +126,36 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
   List<Page> get _loggedInStack => [
         MaterialPage(
           key: const ValueKey('HomePage'),
-          child: ChangeNotifierProvider(
-            create: (context) =>
-                StoriesProvider(authRepository: authRepository),
-            child: InitPage(
-              onLogout: () {
-                isLoggedIn = false;
-                notifyListeners();
-              },
-              onTapped: (String storiesId) {
-                selectedStories = storiesId;
-                notifyListeners();
-              },
-              onPostStories: () {
-                isUploadStories = true;
-                notifyListeners();
-              },
-            ),
+          child: InitPage(
+            onLogout: () {
+              isLoggedIn = false;
+              notifyListeners();
+            },
+            onTapped: (String storiesId) {
+              selectedStories = storiesId;
+              notifyListeners();
+            },
+            onPostStories: () {
+              isUploadStories = true;
+              notifyListeners();
+            },
           ),
         ),
         if (isUploadStories == true)
-          const MaterialPage(
-            key: ValueKey("UploadStories"),
-            child: PostStories(),
+          MaterialPage(
+            key: const ValueKey("UploadStories"),
+            child: ChangeNotifierProvider(
+              create: (context) => PostPageProvider(),
+              child: ChangeNotifierProvider(
+                create: (context) => UploadProvider(ApiService()),
+                child: PostStories(
+                  onUpload: () {
+                    isUploadStories = false;
+                    notifyListeners();
+                  },
+                ),
+              ),
+            ),
           ),
         if (selectedStories != null)
           MaterialPage(

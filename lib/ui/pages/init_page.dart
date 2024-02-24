@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import 'package:story_app/gen/assets.gen.dart';
+import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/ui/pages/activity_page.dart';
 import 'package:story_app/ui/pages/discover_page.dart';
 import 'package:story_app/ui/pages/home_page.dart';
@@ -28,8 +30,6 @@ class _InitPageState extends State<InitPage> {
 
   @override
   void initState() {
-    super.initState();
-
     pages = [
       HomePage(
         onTapped: widget.onTapped,
@@ -40,6 +40,7 @@ class _InitPageState extends State<InitPage> {
         onLogout: widget.onLogout,
       ),
     ];
+    super.initState();
   }
 
   @override
@@ -63,6 +64,7 @@ class _InitPageState extends State<InitPage> {
                 setState(() {
                   pageIndex = 0;
                 });
+                context.read<StoriesProvider>().getStories();
               },
               child: SvgPicture.asset(
                 pageIndex == 0 ? Assets.icon.home : Assets.icon.homeCopy,
