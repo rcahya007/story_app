@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:story_app/db/auth_repository.dart';
-import 'package:story_app/provider/auth_provider.dart';
-import 'package:story_app/provider/stories_provider.dart';
-import 'package:story_app/routes/route_information_parser.dart';
-import 'package:story_app/routes/router_delegate.dart';
-import 'common/url_strategy.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:story_app/common.dart';
+import 'package:story_app/data/datasources/auth_local_datasource.dart';
+import 'package:story_app/data/datasources/auth_remote_datasource.dart';
+import 'package:story_app/data/datasources/post_stories_datasource.dart';
+import 'package:story_app/data/datasources/stories_remote_datasource.dart';
+import 'package:story_app/navigation/app_navigation.dart';
+import 'package:story_app/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:story_app/presentation/auth/bloc/register/register_bloc.dart';
+import 'package:story_app/presentation/bloc/change_index_menu/change_index_menu_bloc.dart';
+import 'package:story_app/presentation/auth/bloc/check_auth/check_auth_bloc.dart';
+import 'package:story_app/presentation/home/bloc/get_detail_stories/get_detail_stories_bloc.dart';
+import 'package:story_app/presentation/home/bloc/get_all_stories/get_all_stories_bloc.dart';
+import 'package:story_app/presentation/home/bloc/show_image/show_image_bloc.dart';
+import 'package:story_app/presentation/home/bloc/upload_image/upload_image_bloc.dart';
+import 'package:story_app/presentation/user/bloc/logout/logout_bloc.dart';
+import 'package:story_app/presentation/user/bloc/get_data_user_local/get_data_user_local_bloc.dart';
+import 'package:story_app/presentation/user/cubit/cubit/change_language_cubit.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
-  usePathUrlStrategy();
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
@@ -20,31 +32,70 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late MyRouterDelegate myRouterDelegate;
-  late AuthProvider authProvider;
-  late MyRouteInformationParser myRouteInformationParser;
-
-  @override
-  void initState() {
-    super.initState();
-    final authRepository = AuthRepository();
-    authProvider = AuthProvider(authRepository: authRepository);
-    myRouterDelegate = MyRouterDelegate(authRepository);
-    myRouteInformationParser = MyRouteInformationParser();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => authProvider,
-      child: ChangeNotifierProvider(
-        create: (context) => StoriesProvider(authRepository: AuthRepository()),
-        child: MaterialApp.router(
-          title: 'Story App',
-          routerDelegate: myRouterDelegate,
-          routeInformationParser: myRouteInformationParser,
-          backButtonDispatcher: RootBackButtonDispatcher(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CheckAuthBloc(AuthLocalDatasource()),
         ),
+        BlocProvider(
+          create: (context) => ChangeIndexMenuBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RegisterBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => GetAllStoriesBloc(StoriesRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => GetDataUserLocalBloc(AuthLocalDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(AuthLocalDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => GetDetailStoriesBloc(StoriesRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ShowImageBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UploadImageBloc(PostStoriesDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ChangeLanguageCubit(),
+        )
+      ],
+      child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(
+        builder: (context, state) {
+          return state.maybeWhen(
+            orElse: () {
+              return const SizedBox();
+            },
+            initial: (locale) {
+              return MaterialApp.router(
+                locale: locale,
+                debugShowCheckedModeBanner: false,
+                routerConfig: AppNavigation.router,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+              );
+            },
+            loaded: (locale) {
+              return MaterialApp.router(
+                locale: locale,
+                debugShowCheckedModeBanner: false,
+                routerConfig: AppNavigation.router,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+              );
+            },
+          );
+        },
       ),
     );
   }
