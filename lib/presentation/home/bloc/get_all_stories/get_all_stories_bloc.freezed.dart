@@ -19,19 +19,19 @@ mixin _$GetAllStoriesEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() getAllStories,
+    required TResult Function(int? pageItems) getAllStories,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? getAllStories,
+    TResult? Function(int? pageItems)? getAllStories,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? getAllStories,
+    TResult Function(int? pageItems)? getAllStories,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,7 +113,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() getAllStories,
+    required TResult Function(int? pageItems) getAllStories,
   }) {
     return started();
   }
@@ -122,7 +122,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? getAllStories,
+    TResult? Function(int? pageItems)? getAllStories,
   }) {
     return started?.call();
   }
@@ -131,7 +131,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? getAllStories,
+    TResult Function(int? pageItems)? getAllStories,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -181,6 +181,8 @@ abstract class _$$GetAllStoriesImplCopyWith<$Res> {
   factory _$$GetAllStoriesImplCopyWith(
           _$GetAllStoriesImpl value, $Res Function(_$GetAllStoriesImpl) then) =
       __$$GetAllStoriesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int? pageItems});
 }
 
 /// @nodoc
@@ -190,54 +192,79 @@ class __$$GetAllStoriesImplCopyWithImpl<$Res>
   __$$GetAllStoriesImplCopyWithImpl(
       _$GetAllStoriesImpl _value, $Res Function(_$GetAllStoriesImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? pageItems = freezed,
+  }) {
+    return _then(_$GetAllStoriesImpl(
+      freezed == pageItems
+          ? _value.pageItems
+          : pageItems // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetAllStoriesImpl implements _GetAllStories {
-  const _$GetAllStoriesImpl();
+  const _$GetAllStoriesImpl(this.pageItems);
+
+  @override
+  final int? pageItems;
 
   @override
   String toString() {
-    return 'GetAllStoriesEvent.getAllStories()';
+    return 'GetAllStoriesEvent.getAllStories(pageItems: $pageItems)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAllStoriesImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetAllStoriesImpl &&
+            (identical(other.pageItems, pageItems) ||
+                other.pageItems == pageItems));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, pageItems);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetAllStoriesImplCopyWith<_$GetAllStoriesImpl> get copyWith =>
+      __$$GetAllStoriesImplCopyWithImpl<_$GetAllStoriesImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() getAllStories,
+    required TResult Function(int? pageItems) getAllStories,
   }) {
-    return getAllStories();
+    return getAllStories(pageItems);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? getAllStories,
+    TResult? Function(int? pageItems)? getAllStories,
   }) {
-    return getAllStories?.call();
+    return getAllStories?.call(pageItems);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? getAllStories,
+    TResult Function(int? pageItems)? getAllStories,
     required TResult orElse(),
   }) {
     if (getAllStories != null) {
-      return getAllStories();
+      return getAllStories(pageItems);
     }
     return orElse();
   }
@@ -275,7 +302,12 @@ class _$GetAllStoriesImpl implements _GetAllStories {
 }
 
 abstract class _GetAllStories implements GetAllStoriesEvent {
-  const factory _GetAllStories() = _$GetAllStoriesImpl;
+  const factory _GetAllStories(final int? pageItems) = _$GetAllStoriesImpl;
+
+  int? get pageItems;
+  @JsonKey(ignore: true)
+  _$$GetAllStoriesImplCopyWith<_$GetAllStoriesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -284,7 +316,7 @@ mixin _$GetAllStoriesState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(StoriesResponseModel data) loaded,
+    required TResult Function(List<ListStory> data) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -292,7 +324,7 @@ mixin _$GetAllStoriesState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(StoriesResponseModel data)? loaded,
+    TResult? Function(List<ListStory> data)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -300,7 +332,7 @@ mixin _$GetAllStoriesState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(StoriesResponseModel data)? loaded,
+    TResult Function(List<ListStory> data)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -390,7 +422,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(StoriesResponseModel data) loaded,
+    required TResult Function(List<ListStory> data) loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -401,7 +433,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(StoriesResponseModel data)? loaded,
+    TResult? Function(List<ListStory> data)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -412,7 +444,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(StoriesResponseModel data)? loaded,
+    TResult Function(List<ListStory> data)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -504,7 +536,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(StoriesResponseModel data) loaded,
+    required TResult Function(List<ListStory> data) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -515,7 +547,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(StoriesResponseModel data)? loaded,
+    TResult? Function(List<ListStory> data)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -526,7 +558,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(StoriesResponseModel data)? loaded,
+    TResult Function(List<ListStory> data)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -584,7 +616,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({StoriesResponseModel data});
+  $Res call({List<ListStory> data});
 }
 
 /// @nodoc
@@ -602,9 +634,9 @@ class __$$LoadedImplCopyWithImpl<$Res>
   }) {
     return _then(_$LoadedImpl(
       null == data
-          ? _value.data
+          ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as StoriesResponseModel,
+              as List<ListStory>,
     ));
   }
 }
@@ -612,10 +644,15 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(this.data);
+  const _$LoadedImpl(final List<ListStory> data) : _data = data;
 
+  final List<ListStory> _data;
   @override
-  final StoriesResponseModel data;
+  List<ListStory> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
 
   @override
   String toString() {
@@ -627,11 +664,12 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            (identical(other.data, data) || other.data == data));
+            const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, data);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
   @JsonKey(ignore: true)
   @override
@@ -644,7 +682,7 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(StoriesResponseModel data) loaded,
+    required TResult Function(List<ListStory> data) loaded,
     required TResult Function(String message) error,
   }) {
     return loaded(data);
@@ -655,7 +693,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(StoriesResponseModel data)? loaded,
+    TResult? Function(List<ListStory> data)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call(data);
@@ -666,7 +704,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(StoriesResponseModel data)? loaded,
+    TResult Function(List<ListStory> data)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -715,9 +753,9 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements GetAllStoriesState {
-  const factory _Loaded(final StoriesResponseModel data) = _$LoadedImpl;
+  const factory _Loaded(final List<ListStory> data) = _$LoadedImpl;
 
-  StoriesResponseModel get data;
+  List<ListStory> get data;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -789,7 +827,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(StoriesResponseModel data) loaded,
+    required TResult Function(List<ListStory> data) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -800,7 +838,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(StoriesResponseModel data)? loaded,
+    TResult? Function(List<ListStory> data)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -811,7 +849,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(StoriesResponseModel data)? loaded,
+    TResult Function(List<ListStory> data)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

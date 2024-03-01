@@ -4,8 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:story_app/core/assets/assets.gen.dart';
 import 'package:story_app/presentation/bloc/change_index_menu/change_index_menu_bloc.dart';
-import 'package:story_app/presentation/home/bloc/get_all_stories/get_all_stories_bloc.dart';
-import 'package:story_app/presentation/user/bloc/get_data_user_local/get_data_user_local_bloc.dart';
 
 class InitPage extends StatefulWidget {
   const InitPage({
@@ -68,9 +66,6 @@ class _InitPageState extends State<InitPage> {
                         context
                             .read<ChangeIndexMenuBloc>()
                             .add(const ChangeIndexMenuEvent.changeIndexMenu(0));
-                        context
-                            .read<GetAllStoriesBloc>()
-                            .add(const GetAllStoriesEvent.getAllStories());
                       },
                       child: SvgPicture.asset(
                         index == 0
@@ -114,8 +109,6 @@ class _InitPageState extends State<InitPage> {
                         context
                             .read<ChangeIndexMenuBloc>()
                             .add(const ChangeIndexMenuEvent.changeIndexMenu(3));
-                        context.read<GetDataUserLocalBloc>().add(
-                            const GetDataUserLocalEvent.getDataUserLocal());
                       },
                       child: SvgPicture.asset(
                         index == 3

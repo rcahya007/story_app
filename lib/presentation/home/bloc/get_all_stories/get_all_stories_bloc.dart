@@ -12,14 +12,22 @@ class GetAllStoriesBloc extends Bloc<GetAllStoriesEvent, GetAllStoriesState> {
   final StoriesRemoteDatasource _storiesRemoteDatasource;
   GetAllStoriesBloc(
     this._storiesRemoteDatasource,
-  ) : super(const _Initial()) {
+  ) : super(const _Loaded([])) {
     on<_GetAllStories>((event, emit) async {
-      emit(const _Loading());
-      final response = await _storiesRemoteDatasource.getAllStories();
-      response.fold(
-        (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r)),
-      );
+      if (event.pageItems == null) {
+        return emit(const _Loaded([]));
+      } else {
+        final currentState = state as _Loaded;
+        final response = await _storiesRemoteDatasource.getAllStories(
+            pageItems: event.pageItems);
+        response.fold(
+          (l) => emit(_Error(l)),
+          (r) {
+            final data = [...currentState.data, ...r.listStory!];
+            return emit(_Loaded(data));
+          },
+        );
+      }
     });
   }
 }

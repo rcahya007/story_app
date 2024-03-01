@@ -113,10 +113,13 @@ class _LoginPageState extends State<LoginPage> {
                                 AuthLocalDatasource().saveAuthData(user);
                                 context.goNamed('Home');
                                 context.read<GetAllStoriesBloc>().add(
-                                      const GetAllStoriesEvent.getAllStories(),
+                                      const GetAllStoriesEvent.getAllStories(
+                                        null,
+                                      ),
                                     );
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
+                                    behavior: SnackBarBehavior.floating,
                                     duration: const Duration(
                                       seconds: 2,
                                     ),

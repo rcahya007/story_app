@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ChangeLanguageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Locale locale) initial,
+    required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Locale locale) loaded,
     required TResult Function(String message) error,
@@ -26,7 +26,7 @@ mixin _$ChangeLanguageState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Locale locale)? initial,
+    TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Locale locale)? loaded,
     TResult? Function(String message)? error,
@@ -34,7 +34,7 @@ mixin _$ChangeLanguageState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Locale locale)? initial,
+    TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Locale locale)? loaded,
     TResult Function(String message)? error,
@@ -91,8 +91,6 @@ abstract class _$$InitialImplCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Locale locale});
 }
 
 /// @nodoc
@@ -102,84 +100,60 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? locale = null,
-  }) {
-    return _then(_$InitialImpl(
-      null == locale
-          ? _value.locale
-          : locale // ignore: cast_nullable_to_non_nullable
-              as Locale,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  const _$InitialImpl(this.locale);
-
-  @override
-  final Locale locale;
+  const _$InitialImpl();
 
   @override
   String toString() {
-    return 'ChangeLanguageState.initial(locale: $locale)';
+    return 'ChangeLanguageState.initial()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$InitialImpl &&
-            (identical(other.locale, locale) || other.locale == locale));
+        (other.runtimeType == runtimeType && other is _$InitialImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, locale);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
-      __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Locale locale) initial,
+    required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Locale locale) loaded,
     required TResult Function(String message) error,
   }) {
-    return initial(locale);
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Locale locale)? initial,
+    TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Locale locale)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return initial?.call(locale);
+    return initial?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Locale locale)? initial,
+    TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Locale locale)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(locale);
+      return initial();
     }
     return orElse();
   }
@@ -223,12 +197,7 @@ class _$InitialImpl implements _Initial {
 }
 
 abstract class _Initial implements ChangeLanguageState {
-  const factory _Initial(final Locale locale) = _$InitialImpl;
-
-  Locale get locale;
-  @JsonKey(ignore: true)
-  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
@@ -269,7 +238,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Locale locale) initial,
+    required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Locale locale) loaded,
     required TResult Function(String message) error,
@@ -280,7 +249,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Locale locale)? initial,
+    TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Locale locale)? loaded,
     TResult? Function(String message)? error,
@@ -291,7 +260,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Locale locale)? initial,
+    TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Locale locale)? loaded,
     TResult Function(String message)? error,
@@ -409,7 +378,7 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Locale locale) initial,
+    required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Locale locale) loaded,
     required TResult Function(String message) error,
@@ -420,7 +389,7 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Locale locale)? initial,
+    TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Locale locale)? loaded,
     TResult? Function(String message)? error,
@@ -431,7 +400,7 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Locale locale)? initial,
+    TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Locale locale)? loaded,
     TResult Function(String message)? error,
@@ -554,7 +523,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Locale locale) initial,
+    required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(Locale locale) loaded,
     required TResult Function(String message) error,
@@ -565,7 +534,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Locale locale)? initial,
+    TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(Locale locale)? loaded,
     TResult? Function(String message)? error,
@@ -576,7 +545,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Locale locale)? initial,
+    TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(Locale locale)? loaded,
     TResult Function(String message)? error,

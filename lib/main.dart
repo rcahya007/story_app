@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:story_app/common.dart';
 import 'package:story_app/data/datasources/auth_local_datasource.dart';
+import 'package:story_app/data/datasources/auth_local_language_datasource.dart';
 import 'package:story_app/data/datasources/auth_remote_datasource.dart';
 import 'package:story_app/data/datasources/post_stories_datasource.dart';
 import 'package:story_app/data/datasources/stories_remote_datasource.dart';
@@ -16,7 +17,7 @@ import 'package:story_app/presentation/home/bloc/show_image/show_image_bloc.dart
 import 'package:story_app/presentation/home/bloc/upload_image/upload_image_bloc.dart';
 import 'package:story_app/presentation/user/bloc/logout/logout_bloc.dart';
 import 'package:story_app/presentation/user/bloc/get_data_user_local/get_data_user_local_bloc.dart';
-import 'package:story_app/presentation/user/cubit/cubit/change_language_cubit.dart';
+import 'package:story_app/presentation/user/cubit/change_language/change_language_cubit.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -67,7 +68,8 @@ class _MyAppState extends State<MyApp> {
           create: (context) => UploadImageBloc(PostStoriesDatasource()),
         ),
         BlocProvider(
-          create: (context) => ChangeLanguageCubit(),
+          create: (context) =>
+              ChangeLanguageCubit(AuthLocalLanguageDatasource()),
         )
       ],
       child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(
@@ -75,15 +77,6 @@ class _MyAppState extends State<MyApp> {
           return state.maybeWhen(
             orElse: () {
               return const SizedBox();
-            },
-            initial: (locale) {
-              return MaterialApp.router(
-                locale: locale,
-                debugShowCheckedModeBanner: false,
-                routerConfig: AppNavigation.router,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-              );
             },
             loaded: (locale) {
               return MaterialApp.router(

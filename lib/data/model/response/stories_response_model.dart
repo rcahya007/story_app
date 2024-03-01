@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class StoriesResponseModel {
@@ -79,4 +80,24 @@ class ListStory {
         "lat": lat,
         "lon": lon,
       };
+
+  ListStory copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? photoUrl,
+    DateTime? createdAt,
+    double? lat,
+    double? lon,
+  }) {
+    return ListStory(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      photoUrl: photoUrl ?? this.photoUrl,
+      createdAt: createdAt ?? this.createdAt,
+      lat: lat ?? this.lat,
+      lon: lon ?? this.lon,
+    );
+  }
 }

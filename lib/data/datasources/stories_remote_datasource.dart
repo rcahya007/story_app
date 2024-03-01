@@ -6,11 +6,14 @@ import 'package:story_app/data/model/response/stories_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class StoriesRemoteDatasource {
-  Future<Either<String, StoriesResponseModel>> getAllStories() async {
+  Future<Either<String, StoriesResponseModel>> getAllStories({
+    int? pageItems = 1,
+    int sizeItems = 10,
+  }) async {
     final dataUser = await AuthLocalDatasource().getAuthData();
     final response = await http.get(
       Uri.parse(
-        '${Variables.urlBase}/stories',
+        '${Variables.urlBase}/stories?page=$pageItems&size=$sizeItems',
       ),
       headers: {
         'Authorization': 'Bearer ${dataUser!.loginResult!.token}',

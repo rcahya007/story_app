@@ -54,7 +54,7 @@ class _PostStoriesState extends State<PostStories> {
                             onTap: () {
                               context.goNamed('Home');
                               context.read<GetAllStoriesBloc>().add(
-                                  const GetAllStoriesEvent.getAllStories());
+                                  const GetAllStoriesEvent.getAllStories(null));
                               context
                                   .read<ShowImageBloc>()
                                   .add(const ShowImageEvent.setImage(null));
@@ -86,9 +86,13 @@ class _PostStoriesState extends State<PostStories> {
                           loadedUpload: (message) {
                             descC.clear();
                             context.goNamed('Home');
+                            context.read<GetAllStoriesBloc>().add(
+                                const GetAllStoriesEvent.getAllStories(null));
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
+                                duration: const Duration(milliseconds: 500),
                                 content: Text(message!),
+                                behavior: SnackBarBehavior.floating,
                               ),
                             );
                           },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:story_app/common.dart';
@@ -50,7 +51,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     ),
                     height: 60,
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.amber,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -58,12 +58,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           '${AppLocalizations.of(context)!.titleChangeLanguage} : ',
                           style: title1,
                         ),
-                        Text(
-                          AppLocalizations.of(context)!.language,
-                          style: title1,
-                        ),
-                        const SizedBox(
-                          width: 12,
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.of(context)!.language,
+                            style: title1,
+                          ),
                         ),
                         const FlagIcon(),
                       ],

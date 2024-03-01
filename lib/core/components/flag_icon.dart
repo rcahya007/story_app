@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:story_app/common.dart';
 import 'package:story_app/core/classes/localization.dart';
-import 'package:story_app/presentation/user/cubit/cubit/change_language_cubit.dart';
+import 'package:story_app/presentation/user/cubit/change_language/change_language_cubit.dart';
 
 class FlagIcon extends StatelessWidget {
   const FlagIcon({super.key});

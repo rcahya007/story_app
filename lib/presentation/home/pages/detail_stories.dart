@@ -49,7 +49,8 @@ class DetailStories extends StatelessWidget {
                               onTap: () {
                                 context.goNamed('Home');
                                 context.read<GetAllStoriesBloc>().add(
-                                    const GetAllStoriesEvent.getAllStories());
+                                    const GetAllStoriesEvent.getAllStories(
+                                        null));
                               },
                               child: SvgPicture.asset(
                                 Assets.icon.arrowLeft1.path,

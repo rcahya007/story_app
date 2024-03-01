@@ -115,6 +115,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                   context.goNamed('Login');
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      duration:
+                                          const Duration(milliseconds: 500),
                                       content: Text(user.message!),
                                     ),
                                   );
