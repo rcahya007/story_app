@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:go_router/go_router.dart';
-import 'package:story_app/core/assets/assets.gen.dart';
-import 'package:story_app/presentation/home/bloc/get_detail_stories/get_detail_stories_bloc.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import 'package:story_app/core/assets/assets.gen.dart';
 import 'package:story_app/core/constants/styles.dart';
 import 'package:story_app/data/model/response/stories_response_model.dart';
+import 'package:story_app/presentation/home/bloc/get_detail_stories/get_detail_stories_bloc.dart';
 
-class CardItem extends StatelessWidget {
+class CardItem extends StatefulWidget {
   final ListStory listStory;
   final String urlImageUser;
   const CardItem({
@@ -19,20 +20,52 @@ class CardItem extends StatelessWidget {
   });
 
   @override
+  State<CardItem> createState() => _CardItemState();
+}
+
+class _CardItemState extends State<CardItem> {
+  String? dataLocaiton;
+
+  @override
+  void initState() {
+    super.initState();
+    getDataLocation();
+  }
+
+  getDataLocation() async {
+    try {
+      final info = await geo.placemarkFromCoordinates(
+          widget.listStory.lat!, widget.listStory.lon!);
+      final place = info[0];
+      final street = place.street!;
+      final address =
+          '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+      setState(() {
+        dataLocaiton = '$street, $address';
+      });
+    } catch (e) {
+      setState(() {
+        dataLocaiton = 'Location not available';
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String timeString = listStory.createdAt!.toString();
+    String timeString = widget.listStory.createdAt!.toString();
     DateTime dateTime = DateTime.parse(timeString);
     DateTime now = DateTime.now();
     String timeAgo = timeago.format(now.subtract(now.difference(dateTime)));
+
     return GestureDetector(
       onTap: () {
         context.goNamed(
           'DetailStories',
-          pathParameters: {'storiesId': listStory.id!},
+          pathParameters: {'storiesId': widget.listStory.id!},
         );
         context
             .read<GetDetailStoriesBloc>()
-            .add(GetDetailStoriesEvent.getDetailStories(listStory.id!));
+            .add(GetDetailStoriesEvent.getDetailStories(widget.listStory.id!));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
@@ -49,7 +82,7 @@ class CardItem extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Colors.amber,
                     backgroundImage: NetworkImage(
-                      urlImageUser,
+                      widget.urlImageUser,
                     ),
                     maxRadius: 15,
                   ),
@@ -58,7 +91,7 @@ class CardItem extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      listStory.name!,
+                      widget.listStory.name!,
                       style: body3,
                     ),
                   ),
@@ -78,7 +111,7 @@ class CardItem extends StatelessWidget {
               height: 224,
               width: MediaQuery.of(context).size.width,
               child: Image.network(
-                listStory.photoUrl!,
+                widget.listStory.photoUrl!,
                 fit: BoxFit.cover,
               ),
             ),
@@ -95,15 +128,29 @@ class CardItem extends StatelessWidget {
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SvgPicture.asset(
-                    Assets.icon.plusCircle1.path,
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.scaleDown,
-                  ),
-                  const Spacer(),
+                  (widget.listStory.lat != null && widget.listStory.lon != null)
+                      ? Expanded(
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                color: Color(0xff5151C6),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  dataLocaiton ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox(),
                   Text(
                     '20',
                     style: body4.copyWith(

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'upload_image_bloc.dart';
+part of 'get_location_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,64 +15,58 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$UploadImageEvent {
+mixin _$GetLocationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<int> bytes, String fileName,
-            String description, LatLng? location)
-        upload,
+    required TResult Function(LatLng? latLng) getLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<int> bytes, String fileName, String description,
-            LatLng? location)?
-        upload,
+    TResult? Function(LatLng? latLng)? getLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<int> bytes, String fileName, String description,
-            LatLng? location)?
-        upload,
+    TResult Function(LatLng? latLng)? getLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_Upload value) upload,
+    required TResult Function(_GetLocation value) getLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_Upload value)? upload,
+    TResult? Function(_GetLocation value)? getLocation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_Upload value)? upload,
+    TResult Function(_GetLocation value)? getLocation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UploadImageEventCopyWith<$Res> {
-  factory $UploadImageEventCopyWith(
-          UploadImageEvent value, $Res Function(UploadImageEvent) then) =
-      _$UploadImageEventCopyWithImpl<$Res, UploadImageEvent>;
+abstract class $GetLocationEventCopyWith<$Res> {
+  factory $GetLocationEventCopyWith(
+          GetLocationEvent value, $Res Function(GetLocationEvent) then) =
+      _$GetLocationEventCopyWithImpl<$Res, GetLocationEvent>;
 }
 
 /// @nodoc
-class _$UploadImageEventCopyWithImpl<$Res, $Val extends UploadImageEvent>
-    implements $UploadImageEventCopyWith<$Res> {
-  _$UploadImageEventCopyWithImpl(this._value, this._then);
+class _$GetLocationEventCopyWithImpl<$Res, $Val extends GetLocationEvent>
+    implements $GetLocationEventCopyWith<$Res> {
+  _$GetLocationEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -89,7 +83,7 @@ abstract class _$$StartedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$UploadImageEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$GetLocationEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
@@ -103,7 +97,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'UploadImageEvent.started()';
+    return 'GetLocationEvent.started()';
   }
 
   @override
@@ -119,9 +113,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<int> bytes, String fileName,
-            String description, LatLng? location)
-        upload,
+    required TResult Function(LatLng? latLng) getLocation,
   }) {
     return started();
   }
@@ -130,9 +122,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<int> bytes, String fileName, String description,
-            LatLng? location)?
-        upload,
+    TResult? Function(LatLng? latLng)? getLocation,
   }) {
     return started?.call();
   }
@@ -141,9 +131,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<int> bytes, String fileName, String description,
-            LatLng? location)?
-        upload,
+    TResult Function(LatLng? latLng)? getLocation,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -156,7 +144,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_Upload value) upload,
+    required TResult Function(_GetLocation value) getLocation,
   }) {
     return started(this);
   }
@@ -165,7 +153,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_Upload value)? upload,
+    TResult? Function(_GetLocation value)? getLocation,
   }) {
     return started?.call(this);
   }
@@ -174,7 +162,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_Upload value)? upload,
+    TResult Function(_GetLocation value)? getLocation,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -184,52 +172,36 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements UploadImageEvent {
+abstract class _Started implements GetLocationEvent {
   const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$UploadImplCopyWith<$Res> {
-  factory _$$UploadImplCopyWith(
-          _$UploadImpl value, $Res Function(_$UploadImpl) then) =
-      __$$UploadImplCopyWithImpl<$Res>;
+abstract class _$$GetLocationImplCopyWith<$Res> {
+  factory _$$GetLocationImplCopyWith(
+          _$GetLocationImpl value, $Res Function(_$GetLocationImpl) then) =
+      __$$GetLocationImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {List<int> bytes, String fileName, String description, LatLng? location});
+  $Res call({LatLng? latLng});
 }
 
 /// @nodoc
-class __$$UploadImplCopyWithImpl<$Res>
-    extends _$UploadImageEventCopyWithImpl<$Res, _$UploadImpl>
-    implements _$$UploadImplCopyWith<$Res> {
-  __$$UploadImplCopyWithImpl(
-      _$UploadImpl _value, $Res Function(_$UploadImpl) _then)
+class __$$GetLocationImplCopyWithImpl<$Res>
+    extends _$GetLocationEventCopyWithImpl<$Res, _$GetLocationImpl>
+    implements _$$GetLocationImplCopyWith<$Res> {
+  __$$GetLocationImplCopyWithImpl(
+      _$GetLocationImpl _value, $Res Function(_$GetLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bytes = null,
-    Object? fileName = null,
-    Object? description = null,
-    Object? location = freezed,
+    Object? latLng = freezed,
   }) {
-    return _then(_$UploadImpl(
-      null == bytes
-          ? _value._bytes
-          : bytes // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      null == fileName
-          ? _value.fileName
-          : fileName // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
+    return _then(_$GetLocationImpl(
+      freezed == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
               as LatLng?,
     ));
   }
@@ -237,91 +209,61 @@ class __$$UploadImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UploadImpl implements _Upload {
-  const _$UploadImpl(
-      final List<int> bytes, this.fileName, this.description, this.location)
-      : _bytes = bytes;
-
-  final List<int> _bytes;
-  @override
-  List<int> get bytes {
-    if (_bytes is EqualUnmodifiableListView) return _bytes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_bytes);
-  }
+class _$GetLocationImpl implements _GetLocation {
+  const _$GetLocationImpl(this.latLng);
 
   @override
-  final String fileName;
-  @override
-  final String description;
-  @override
-  final LatLng? location;
+  final LatLng? latLng;
 
   @override
   String toString() {
-    return 'UploadImageEvent.upload(bytes: $bytes, fileName: $fileName, description: $description, location: $location)';
+    return 'GetLocationEvent.getLocation(latLng: $latLng)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UploadImpl &&
-            const DeepCollectionEquality().equals(other._bytes, _bytes) &&
-            (identical(other.fileName, fileName) ||
-                other.fileName == fileName) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            const DeepCollectionEquality().equals(other.location, location));
+            other is _$GetLocationImpl &&
+            (identical(other.latLng, latLng) || other.latLng == latLng));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_bytes),
-      fileName,
-      description,
-      const DeepCollectionEquality().hash(location));
+  int get hashCode => Object.hash(runtimeType, latLng);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UploadImplCopyWith<_$UploadImpl> get copyWith =>
-      __$$UploadImplCopyWithImpl<_$UploadImpl>(this, _$identity);
+  _$$GetLocationImplCopyWith<_$GetLocationImpl> get copyWith =>
+      __$$GetLocationImplCopyWithImpl<_$GetLocationImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(List<int> bytes, String fileName,
-            String description, LatLng? location)
-        upload,
+    required TResult Function(LatLng? latLng) getLocation,
   }) {
-    return upload(bytes, fileName, description, location);
+    return getLocation(latLng);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(List<int> bytes, String fileName, String description,
-            LatLng? location)?
-        upload,
+    TResult? Function(LatLng? latLng)? getLocation,
   }) {
-    return upload?.call(bytes, fileName, description, location);
+    return getLocation?.call(latLng);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(List<int> bytes, String fileName, String description,
-            LatLng? location)?
-        upload,
+    TResult Function(LatLng? latLng)? getLocation,
     required TResult orElse(),
   }) {
-    if (upload != null) {
-      return upload(bytes, fileName, description, location);
+    if (getLocation != null) {
+      return getLocation(latLng);
     }
     return orElse();
   }
@@ -330,71 +272,67 @@ class _$UploadImpl implements _Upload {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_Upload value) upload,
+    required TResult Function(_GetLocation value) getLocation,
   }) {
-    return upload(this);
+    return getLocation(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_Upload value)? upload,
+    TResult? Function(_GetLocation value)? getLocation,
   }) {
-    return upload?.call(this);
+    return getLocation?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_Upload value)? upload,
+    TResult Function(_GetLocation value)? getLocation,
     required TResult orElse(),
   }) {
-    if (upload != null) {
-      return upload(this);
+    if (getLocation != null) {
+      return getLocation(this);
     }
     return orElse();
   }
 }
 
-abstract class _Upload implements UploadImageEvent {
-  const factory _Upload(final List<int> bytes, final String fileName,
-      final String description, final LatLng? location) = _$UploadImpl;
+abstract class _GetLocation implements GetLocationEvent {
+  const factory _GetLocation(final LatLng? latLng) = _$GetLocationImpl;
 
-  List<int> get bytes;
-  String get fileName;
-  String get description;
-  LatLng? get location;
+  LatLng? get latLng;
   @JsonKey(ignore: true)
-  _$$UploadImplCopyWith<_$UploadImpl> get copyWith =>
+  _$$GetLocationImplCopyWith<_$GetLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$UploadImageState {
+mixin _$GetLocationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? message) loadedUpload,
-    required TResult Function(String message) error,
+    required TResult Function(LatLng? latLng, String address) loaded,
+    required TResult Function(String massege) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? message)? loadedUpload,
-    TResult? Function(String message)? error,
+    TResult? Function(LatLng? latLng, String address)? loaded,
+    TResult? Function(String massege)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? message)? loadedUpload,
-    TResult Function(String message)? error,
+    TResult Function(LatLng? latLng, String address)? loaded,
+    TResult Function(String massege)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -402,7 +340,7 @@ mixin _$UploadImageState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_LoadedUpload value) loadedUpload,
+    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -410,7 +348,7 @@ mixin _$UploadImageState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_LoadedUpload value)? loadedUpload,
+    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -418,7 +356,7 @@ mixin _$UploadImageState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_LoadedUpload value)? loadedUpload,
+    TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -426,16 +364,16 @@ mixin _$UploadImageState {
 }
 
 /// @nodoc
-abstract class $UploadImageStateCopyWith<$Res> {
-  factory $UploadImageStateCopyWith(
-          UploadImageState value, $Res Function(UploadImageState) then) =
-      _$UploadImageStateCopyWithImpl<$Res, UploadImageState>;
+abstract class $GetLocationStateCopyWith<$Res> {
+  factory $GetLocationStateCopyWith(
+          GetLocationState value, $Res Function(GetLocationState) then) =
+      _$GetLocationStateCopyWithImpl<$Res, GetLocationState>;
 }
 
 /// @nodoc
-class _$UploadImageStateCopyWithImpl<$Res, $Val extends UploadImageState>
-    implements $UploadImageStateCopyWith<$Res> {
-  _$UploadImageStateCopyWithImpl(this._value, this._then);
+class _$GetLocationStateCopyWithImpl<$Res, $Val extends GetLocationState>
+    implements $GetLocationStateCopyWith<$Res> {
+  _$GetLocationStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -452,7 +390,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$UploadImageStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$GetLocationStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -466,7 +404,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UploadImageState.initial()';
+    return 'GetLocationState.initial()';
   }
 
   @override
@@ -483,8 +421,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? message) loadedUpload,
-    required TResult Function(String message) error,
+    required TResult Function(LatLng? latLng, String address) loaded,
+    required TResult Function(String massege) error,
   }) {
     return initial();
   }
@@ -494,8 +432,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? message)? loadedUpload,
-    TResult? Function(String message)? error,
+    TResult? Function(LatLng? latLng, String address)? loaded,
+    TResult? Function(String massege)? error,
   }) {
     return initial?.call();
   }
@@ -505,8 +443,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? message)? loadedUpload,
-    TResult Function(String message)? error,
+    TResult Function(LatLng? latLng, String address)? loaded,
+    TResult Function(String massege)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -520,7 +458,7 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_LoadedUpload value) loadedUpload,
+    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -531,7 +469,7 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_LoadedUpload value)? loadedUpload,
+    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -542,7 +480,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_LoadedUpload value)? loadedUpload,
+    TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -553,7 +491,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements UploadImageState {
+abstract class _Initial implements GetLocationState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -566,7 +504,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$UploadImageStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$GetLocationStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -580,7 +518,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'UploadImageState.loading()';
+    return 'GetLocationState.loading()';
   }
 
   @override
@@ -597,8 +535,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? message) loadedUpload,
-    required TResult Function(String message) error,
+    required TResult Function(LatLng? latLng, String address) loaded,
+    required TResult Function(String massege) error,
   }) {
     return loading();
   }
@@ -608,8 +546,8 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? message)? loadedUpload,
-    TResult? Function(String message)? error,
+    TResult? Function(LatLng? latLng, String address)? loaded,
+    TResult? Function(String massege)? error,
   }) {
     return loading?.call();
   }
@@ -619,8 +557,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? message)? loadedUpload,
-    TResult Function(String message)? error,
+    TResult Function(LatLng? latLng, String address)? loaded,
+    TResult Function(String massege)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -634,7 +572,7 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_LoadedUpload value) loadedUpload,
+    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -645,7 +583,7 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_LoadedUpload value)? loadedUpload,
+    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -656,7 +594,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_LoadedUpload value)? loadedUpload,
+    TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -667,80 +605,88 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements UploadImageState {
+abstract class _Loading implements GetLocationState {
   const factory _Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadedUploadImplCopyWith<$Res> {
-  factory _$$LoadedUploadImplCopyWith(
-          _$LoadedUploadImpl value, $Res Function(_$LoadedUploadImpl) then) =
-      __$$LoadedUploadImplCopyWithImpl<$Res>;
+abstract class _$$LoadedImplCopyWith<$Res> {
+  factory _$$LoadedImplCopyWith(
+          _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
+      __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? message});
+  $Res call({LatLng? latLng, String address});
 }
 
 /// @nodoc
-class __$$LoadedUploadImplCopyWithImpl<$Res>
-    extends _$UploadImageStateCopyWithImpl<$Res, _$LoadedUploadImpl>
-    implements _$$LoadedUploadImplCopyWith<$Res> {
-  __$$LoadedUploadImplCopyWithImpl(
-      _$LoadedUploadImpl _value, $Res Function(_$LoadedUploadImpl) _then)
+class __$$LoadedImplCopyWithImpl<$Res>
+    extends _$GetLocationStateCopyWithImpl<$Res, _$LoadedImpl>
+    implements _$$LoadedImplCopyWith<$Res> {
+  __$$LoadedImplCopyWithImpl(
+      _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = freezed,
+    Object? latLng = freezed,
+    Object? address = null,
   }) {
-    return _then(_$LoadedUploadImpl(
-      freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(_$LoadedImpl(
+      freezed == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
+      null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$LoadedUploadImpl implements _LoadedUpload {
-  const _$LoadedUploadImpl(this.message);
+class _$LoadedImpl implements _Loaded {
+  const _$LoadedImpl(this.latLng, this.address);
 
   @override
-  final String? message;
+  final LatLng? latLng;
+  @override
+  final String address;
 
   @override
   String toString() {
-    return 'UploadImageState.loadedUpload(message: $message)';
+    return 'GetLocationState.loaded(latLng: $latLng, address: $address)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadedUploadImpl &&
-            (identical(other.message, message) || other.message == message));
+            other is _$LoadedImpl &&
+            (identical(other.latLng, latLng) || other.latLng == latLng) &&
+            (identical(other.address, address) || other.address == address));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, latLng, address);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoadedUploadImplCopyWith<_$LoadedUploadImpl> get copyWith =>
-      __$$LoadedUploadImplCopyWithImpl<_$LoadedUploadImpl>(this, _$identity);
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? message) loadedUpload,
-    required TResult Function(String message) error,
+    required TResult Function(LatLng? latLng, String address) loaded,
+    required TResult Function(String massege) error,
   }) {
-    return loadedUpload(message);
+    return loaded(latLng, address);
   }
 
   @override
@@ -748,10 +694,10 @@ class _$LoadedUploadImpl implements _LoadedUpload {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? message)? loadedUpload,
-    TResult? Function(String message)? error,
+    TResult? Function(LatLng? latLng, String address)? loaded,
+    TResult? Function(String massege)? error,
   }) {
-    return loadedUpload?.call(message);
+    return loaded?.call(latLng, address);
   }
 
   @override
@@ -759,12 +705,12 @@ class _$LoadedUploadImpl implements _LoadedUpload {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? message)? loadedUpload,
-    TResult Function(String message)? error,
+    TResult Function(LatLng? latLng, String address)? loaded,
+    TResult Function(String massege)? error,
     required TResult orElse(),
   }) {
-    if (loadedUpload != null) {
-      return loadedUpload(message);
+    if (loaded != null) {
+      return loaded(latLng, address);
     }
     return orElse();
   }
@@ -774,10 +720,10 @@ class _$LoadedUploadImpl implements _LoadedUpload {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_LoadedUpload value) loadedUpload,
+    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
-    return loadedUpload(this);
+    return loaded(this);
   }
 
   @override
@@ -785,10 +731,10 @@ class _$LoadedUploadImpl implements _LoadedUpload {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_LoadedUpload value)? loadedUpload,
+    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
-    return loadedUpload?.call(this);
+    return loaded?.call(this);
   }
 
   @override
@@ -796,23 +742,25 @@ class _$LoadedUploadImpl implements _LoadedUpload {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_LoadedUpload value)? loadedUpload,
+    TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
-    if (loadedUpload != null) {
-      return loadedUpload(this);
+    if (loaded != null) {
+      return loaded(this);
     }
     return orElse();
   }
 }
 
-abstract class _LoadedUpload implements UploadImageState {
-  const factory _LoadedUpload(final String? message) = _$LoadedUploadImpl;
+abstract class _Loaded implements GetLocationState {
+  const factory _Loaded(final LatLng? latLng, final String address) =
+      _$LoadedImpl;
 
-  String? get message;
+  LatLng? get latLng;
+  String get address;
   @JsonKey(ignore: true)
-  _$$LoadedUploadImplCopyWith<_$LoadedUploadImpl> get copyWith =>
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -822,12 +770,12 @@ abstract class _$$ErrorImplCopyWith<$Res> {
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String message});
+  $Res call({String massege});
 }
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$UploadImageStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$GetLocationStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -836,12 +784,12 @@ class __$$ErrorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? massege = null,
   }) {
     return _then(_$ErrorImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
+      null == massege
+          ? _value.massege
+          : massege // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -850,14 +798,14 @@ class __$$ErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl(this.message);
+  const _$ErrorImpl(this.massege);
 
   @override
-  final String message;
+  final String massege;
 
   @override
   String toString() {
-    return 'UploadImageState.error(message: $message)';
+    return 'GetLocationState.error(massege: $massege)';
   }
 
   @override
@@ -865,11 +813,11 @@ class _$ErrorImpl implements _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.massege, massege) || other.massege == massege));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, massege);
 
   @JsonKey(ignore: true)
   @override
@@ -882,10 +830,10 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? message) loadedUpload,
-    required TResult Function(String message) error,
+    required TResult Function(LatLng? latLng, String address) loaded,
+    required TResult Function(String massege) error,
   }) {
-    return error(message);
+    return error(massege);
   }
 
   @override
@@ -893,10 +841,10 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? message)? loadedUpload,
-    TResult? Function(String message)? error,
+    TResult? Function(LatLng? latLng, String address)? loaded,
+    TResult? Function(String massege)? error,
   }) {
-    return error?.call(message);
+    return error?.call(massege);
   }
 
   @override
@@ -904,12 +852,12 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? message)? loadedUpload,
-    TResult Function(String message)? error,
+    TResult Function(LatLng? latLng, String address)? loaded,
+    TResult Function(String massege)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message);
+      return error(massege);
     }
     return orElse();
   }
@@ -919,7 +867,7 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_LoadedUpload value) loadedUpload,
+    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -930,7 +878,7 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_LoadedUpload value)? loadedUpload,
+    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -941,7 +889,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_LoadedUpload value)? loadedUpload,
+    TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -952,10 +900,10 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements UploadImageState {
-  const factory _Error(final String message) = _$ErrorImpl;
+abstract class _Error implements GetLocationState {
+  const factory _Error(final String massege) = _$ErrorImpl;
 
-  String get message;
+  String get massege;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;

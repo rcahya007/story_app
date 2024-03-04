@@ -8,6 +8,7 @@ import 'package:story_app/presentation/bloc/change_index_menu/change_index_menu_
 import 'package:story_app/presentation/home/pages/activity_page.dart';
 import 'package:story_app/presentation/home/pages/detail_stories.dart';
 import 'package:story_app/presentation/home/pages/discover_page.dart';
+import 'package:story_app/presentation/home/pages/gmaps_page.dart';
 import 'package:story_app/presentation/home/pages/home_page.dart';
 import 'package:story_app/presentation/init_page.dart';
 import 'package:story_app/presentation/home/pages/post_stories.dart';
@@ -56,24 +57,25 @@ class AppNavigation {
             navigatorKey: _rootNavigatorHome,
             routes: [
               GoRoute(
-                  path: '/home',
-                  name: 'Home',
-                  builder: (context, state) {
-                    return HomePage(
-                      key: state.pageKey,
-                    );
-                  },
-                  routes: [
-                    GoRoute(
-                        path: ':storiesId',
-                        name: 'DetailStories',
-                        builder: (context, state) {
-                          return DetailStories(
-                            key: state.pageKey,
-                            storiesId: state.pathParameters['storiesId']!,
-                          );
-                        })
-                  ]),
+                path: '/home',
+                name: 'Home',
+                builder: (context, state) {
+                  return HomePage(
+                    key: state.pageKey,
+                  );
+                },
+                routes: [
+                  GoRoute(
+                      path: ':storiesId',
+                      name: 'DetailStories',
+                      builder: (context, state) {
+                        return DetailStories(
+                          key: state.pageKey,
+                          storiesId: state.pathParameters['storiesId']!,
+                        );
+                      }),
+                ],
+              ),
             ],
           ),
           // Branch Discover
@@ -132,16 +134,28 @@ class AppNavigation {
           ),
         ],
       ),
-
       GoRoute(
-          path: '/upload',
-          name: 'Upload',
-          parentNavigatorKey: _rootNavigatorKey,
-          builder: (context, state) {
-            return PostStories(
-              key: state.pageKey,
-            );
-          }),
+        path: '/upload',
+        name: 'Upload',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          return PostStories(
+            key: state.pageKey,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: 'gmpas',
+            name: 'Gmaps',
+            parentNavigatorKey: _rootNavigatorKey,
+            builder: (context, state) {
+              return GmapsPage(
+                key: state.pageKey,
+              );
+            },
+          ),
+        ],
+      ),
 
       GoRoute(
           path: '/splash_screen',

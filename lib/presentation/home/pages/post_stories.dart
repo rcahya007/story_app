@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:story_app/core/assets/assets.gen.dart';
 
 import 'package:story_app/core/constants/styles.dart';
+import 'package:story_app/flavor_config.dart';
 import 'package:story_app/presentation/home/bloc/get_all_stories/get_all_stories_bloc.dart';
+import 'package:story_app/presentation/home/bloc/get_location/get_location_bloc.dart';
 import 'package:story_app/presentation/home/bloc/show_image/show_image_bloc.dart';
 import 'package:story_app/presentation/home/bloc/upload_image/upload_image_bloc.dart';
 
@@ -25,6 +28,7 @@ class PostStories extends StatefulWidget {
 class _PostStoriesState extends State<PostStories> {
   late final TextEditingController descC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  LatLng? location;
 
   @override
   void dispose() {
@@ -35,6 +39,7 @@ class _PostStoriesState extends State<PostStories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -58,6 +63,8 @@ class _PostStoriesState extends State<PostStories> {
                               context
                                   .read<ShowImageBloc>()
                                   .add(const ShowImageEvent.setImage(null));
+                              context.read<GetLocationBloc>().add(
+                                  const GetLocationEvent.getLocation(null));
                             },
                             child: SvgPicture.asset(
                               Assets.icon.x1.path,
@@ -88,6 +95,12 @@ class _PostStoriesState extends State<PostStories> {
                             context.goNamed('Home');
                             context.read<GetAllStoriesBloc>().add(
                                 const GetAllStoriesEvent.getAllStories(null));
+                            context
+                                .read<GetLocationBloc>()
+                                .add(const GetLocationEvent.getLocation(null));
+                            context
+                                .read<ShowImageBloc>()
+                                .add(const ShowImageEvent.setImage(null));
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 duration: const Duration(milliseconds: 500),
@@ -116,7 +129,7 @@ class _PostStoriesState extends State<PostStories> {
                                   orElse: () => GestureDetector(
                                     onTap: () async {
                                       if (_formKey.currentState!.validate()) {
-                                        await _onUpload(null);
+                                        await _onUpload(null, null);
                                       }
                                     },
                                     child: SvgPicture.asset(
@@ -127,22 +140,31 @@ class _PostStoriesState extends State<PostStories> {
                                     ),
                                   ),
                                   loaded: (imageFile) {
-                                    return GestureDetector(
-                                      onTap: () async {
-                                        if (_formKey.currentState!.validate()) {
-                                          await _onUpload(imageFile);
-                                          if (context.mounted) {
-                                            context.read<ShowImageBloc>().add(
-                                                const ShowImageEvent.setImage(
-                                                    null));
-                                          }
-                                        }
+                                    return BlocListener<GetLocationBloc,
+                                        GetLocationState>(
+                                      listener: (context, state) {
+                                        state.maybeWhen(
+                                            orElse: () {},
+                                            loaded: (latLng, address) {
+                                              if (latLng != null) {
+                                                location = latLng;
+                                              }
+                                            });
                                       },
-                                      child: SvgPicture.asset(
-                                        Assets.icon.upload.path,
-                                        width: 24,
-                                        height: 24,
-                                        fit: BoxFit.contain,
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            await _onUpload(
+                                                imageFile, location);
+                                          }
+                                        },
+                                        child: SvgPicture.asset(
+                                          Assets.icon.upload.path,
+                                          width: 24,
+                                          height: 24,
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
                                     );
                                   },
@@ -213,22 +235,106 @@ class _PostStoriesState extends State<PostStories> {
                 height: 20,
               ),
               Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () => _onGalleryView(),
-                      child: const Text("Gallery"),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () => _onGalleryView(),
+                            child: const Text("Gallery"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => _onCameraView(),
+                            child: const Text("Camera"),
+                          ),
+                        ],
+                      ),
                     ),
-                    ElevatedButton(
-                      onPressed: () => _onCameraView(),
-                      child: const Text("Camera"),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    ElevatedButton(
-                      onPressed: () => _onCustomCameraView(),
-                      child: const Text("Custom Camera"),
-                    ),
+                    FlavorConfig.instance.flavor.name == 'free'
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            child:
+                                BlocBuilder<GetLocationBloc, GetLocationState>(
+                              builder: (context, state) {
+                                return state.maybeWhen(
+                                    orElse: () => Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            const Expanded(
+                                                child: Text(
+                                              'No Location',
+                                            )),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                context.goNamed('Gmaps');
+                                              },
+                                              child: const Text("Location"),
+                                            ),
+                                          ],
+                                        ),
+                                    loaded: (latLng, address) {
+                                      if (latLng == null) {
+                                        return Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            const Expanded(
+                                                child: Text(
+                                              'No Location',
+                                            )),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                context.goNamed('Gmaps');
+                                              },
+                                              child: const Text("Location"),
+                                            ),
+                                          ],
+                                        );
+                                      } else {
+                                        return Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                                child: Text(
+                                              address,
+                                            )),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                context.goNamed('Gmaps');
+                                              },
+                                              child:
+                                                  const Text("Change Location"),
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                    });
+                              },
+                            ),
+                          ),
                   ],
                 ),
               ),
@@ -239,7 +345,7 @@ class _PostStoriesState extends State<PostStories> {
     );
   }
 
-  _onUpload(XFile? image) async {
+  _onUpload(XFile? image, LatLng? location) async {
     final ScaffoldMessengerState scaffoldMessengerState =
         ScaffoldMessenger.of(context);
     if (image == null) {
@@ -254,9 +360,12 @@ class _PostStoriesState extends State<PostStories> {
     final bytes = await imageFile.readAsBytes();
 
     if (mounted) {
-      context
-          .read<UploadImageBloc>()
-          .add(UploadImageEvent.upload(bytes, fileName, descC.text));
+      context.read<UploadImageBloc>().add(UploadImageEvent.upload(
+            bytes,
+            fileName,
+            descC.text,
+            location,
+          ));
     }
   }
 
@@ -295,8 +404,6 @@ class _PostStoriesState extends State<PostStories> {
       }
     }
   }
-
-  _onCustomCameraView() async {}
 
   Widget _showImage(String path) {
     return kIsWeb

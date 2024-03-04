@@ -6,6 +6,7 @@ import 'package:story_app/data/datasources/auth_local_language_datasource.dart';
 import 'package:story_app/data/datasources/auth_remote_datasource.dart';
 import 'package:story_app/data/datasources/post_stories_datasource.dart';
 import 'package:story_app/data/datasources/stories_remote_datasource.dart';
+import 'package:story_app/flavor_config.dart';
 import 'package:story_app/navigation/app_navigation.dart';
 import 'package:story_app/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:story_app/presentation/auth/bloc/register/register_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:story_app/presentation/bloc/change_index_menu/change_index_menu_
 import 'package:story_app/presentation/auth/bloc/check_auth/check_auth_bloc.dart';
 import 'package:story_app/presentation/home/bloc/get_detail_stories/get_detail_stories_bloc.dart';
 import 'package:story_app/presentation/home/bloc/get_all_stories/get_all_stories_bloc.dart';
+import 'package:story_app/presentation/home/bloc/get_location/get_location_bloc.dart';
 import 'package:story_app/presentation/home/bloc/show_image/show_image_bloc.dart';
 import 'package:story_app/presentation/home/bloc/upload_image/upload_image_bloc.dart';
 import 'package:story_app/presentation/user/bloc/logout/logout_bloc.dart';
@@ -21,6 +23,12 @@ import 'package:story_app/presentation/user/cubit/change_language/change_languag
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  FlavorConfig(
+    flavor: FlavorType.paid,
+    values: const FlavorValues(
+      titleApp: "Story App Paid",
+    ),
+  );
   setPathUrlStrategy();
   runApp(const MyApp());
 }
@@ -70,6 +78,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) =>
               ChangeLanguageCubit(AuthLocalLanguageDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => GetLocationBloc(),
         )
       ],
       child: BlocBuilder<ChangeLanguageCubit, ChangeLanguageState>(

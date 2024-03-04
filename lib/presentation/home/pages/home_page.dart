@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int? pageItems = 1;
   final ScrollController scrollController = ScrollController();
+  final listKey = GlobalKey<AnimatedListState>();
   @override
   void initState() {
     context.read<GetAllStoriesBloc>().add(
@@ -101,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         loaded: (data) {
                           return ListView.builder(
+                            key: listKey,
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: data.length,
@@ -110,8 +112,6 @@ class _HomePageState extends State<HomePage> {
                                 urlImageUser:
                                     'https://ui-avatars.com/api/?name=${data[index].name!}',
                               );
-                              //   ],
-                              // );
                             },
                           );
                         },

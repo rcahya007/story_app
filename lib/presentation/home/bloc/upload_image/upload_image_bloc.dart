@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:story_app/data/datasources/post_stories_datasource.dart';
 import 'package:image/image.dart' as img;
 
@@ -44,6 +45,7 @@ class UploadImageBloc extends Bloc<UploadImageEvent, UploadImageState> {
         bytes,
         fileName,
         description,
+        event.location,
       );
       response.fold(
         (l) => emit(_Error(l)),

@@ -7,5 +7,6 @@ class UploadImageEvent with _$UploadImageEvent {
     List<int> bytes,
     String fileName,
     String description,
+    LatLng? location,
   ) = _Upload;
 }

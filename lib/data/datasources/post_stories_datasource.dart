@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:story_app/data/datasources/auth_local_datasource.dart';
 import 'package:story_app/data/model/upload_response.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,7 @@ class PostStoriesDatasource {
     List<int> bytes,
     String fileName,
     String description,
+    LatLng? location,
   ) async {
     const String url = "https://story-api.dicoding.dev/v1/stories";
 
@@ -22,9 +24,19 @@ class PostStoriesDatasource {
       filename: fileName,
     );
 
-    final Map<String, String> fields = {
-      "description": description,
-    };
+    Map<String, String> fields;
+
+    if (location != null) {
+      fields = {
+        "description": description,
+        "lat": location.latitude.toString(),
+        "lon": location.longitude.toString()
+      };
+    } else {
+      fields = {
+        "description": description,
+      };
+    }
 
     final AuthLocalDatasource authLocalDatasource;
     authLocalDatasource = AuthLocalDatasource();

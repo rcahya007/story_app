@@ -4,6 +4,7 @@ import 'package:story_app/core/assets/assets.gen.dart';
 
 import 'package:story_app/core/constants/styles.dart';
 
+// ignore: must_be_immutable
 class InputTextCustom extends StatefulWidget {
   final String? hintText;
   final bool isPassword;
