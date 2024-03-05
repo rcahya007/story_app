@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +25,8 @@ class DetailStories extends StatefulWidget {
 
 class _DetailStoriesState extends State<DetailStories> {
   String? dataLocaiton;
+  bool readMore = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -250,7 +254,7 @@ class _DetailStoriesState extends State<DetailStories> {
                                     Padding(
                                       padding: const EdgeInsets.only(
                                         left: 16,
-                                        top: 16,
+                                        top: 5,
                                       ),
                                       child: Row(
                                         children: [
@@ -271,10 +275,11 @@ class _DetailStoriesState extends State<DetailStories> {
                                       style: body3,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(16),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 5,
+                                      ),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
                                           Image.network(
                                             data.story!.photoUrl!,
@@ -287,10 +292,37 @@ class _DetailStoriesState extends State<DetailStories> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Text(
-                                            data.story!.description!,
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                readMore = !readMore;
+                                              });
+                                            },
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  data.story!.description!,
+                                                  maxLines: readMore ? null : 2,
+                                                  overflow: readMore
+                                                      ? TextOverflow.visible
+                                                      : TextOverflow.ellipsis,
+                                                ),
+                                                data.story!.description!
+                                                            .length >
+                                                        50
+                                                    ? Text(
+                                                        readMore
+                                                            ? 'Read Less'
+                                                            : 'Read More',
+                                                        style: body4.copyWith(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),

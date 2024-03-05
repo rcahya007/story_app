@@ -272,7 +272,8 @@ class _$UploadImpl implements _Upload {
                 other.fileName == fileName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            const DeepCollectionEquality().equals(other.location, location));
+            (identical(other.location, location) ||
+                other.location == location));
   }
 
   @override
@@ -281,7 +282,7 @@ class _$UploadImpl implements _Upload {
       const DeepCollectionEquality().hash(_bytes),
       fileName,
       description,
-      const DeepCollectionEquality().hash(location));
+      location);
 
   @JsonKey(ignore: true)
   @override

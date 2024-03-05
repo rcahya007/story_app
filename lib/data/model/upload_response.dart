@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-/// todo-03-upload-01: create a UploadResponse file
 class UploadResponse {
   final bool error;
   final String message;

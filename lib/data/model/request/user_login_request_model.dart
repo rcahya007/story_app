@@ -1,5 +1,8 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'user_login_request_model.g.dart';
+
+@JsonSerializable()
 class UserLoginRequestModel {
   final String? email;
   final String? password;
@@ -9,19 +12,8 @@ class UserLoginRequestModel {
     this.password,
   });
 
-  factory UserLoginRequestModel.fromJson(String str) =>
-      UserLoginRequestModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
   factory UserLoginRequestModel.fromMap(Map<String, dynamic> json) =>
-      UserLoginRequestModel(
-        email: json["email"],
-        password: json["password"],
-      );
+      _$UserLoginRequestModelFromJson(json);
 
-  Map<String, dynamic> toMap() => {
-        "email": email,
-        "password": password,
-      };
+  Map<String, dynamic> toJson() => _$UserLoginRequestModelToJson(this);
 }
