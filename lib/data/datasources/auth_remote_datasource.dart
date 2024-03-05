@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:story_app/core/constants/variables.dart';
 import 'package:story_app/data/model/request/user_login_request_model.dart';
 import 'package:story_app/data/model/request/user_register_request_model.dart';
@@ -11,7 +13,7 @@ class AuthRemoteDatasource {
       UserRegisterRequestModel user) async {
     final response = await http.post(
       Uri.parse('${Variables.urlBase}/register'),
-      body: user.toJson(),
+      body: jsonEncode(user.toJson()),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,7 +30,7 @@ class AuthRemoteDatasource {
     UserLoginRequestModel user,
   ) async {
     final response = await http.post(Uri.parse('${Variables.urlBase}/login'),
-        body: user.toJson(),
+        body: jsonEncode(user.toJson()),
         headers: {
           'Content-Type': 'application/json',
         });

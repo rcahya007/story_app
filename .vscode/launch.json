@@ -1,25 +1,22 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "story_app",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "story_app (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "story_app (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "story_app paid mode",
+      "request": "launch",
+      "type": "dart",
+      "args": ["-t", "lib/main_paid.dart", "paid"],
+      "program": "lib/main_paid.dart"
+    },
+    {
+      "name": "story_app free mode",
+      "request": "launch",
+      "type": "dart",
+      "args": ["-t", "lib/main_free.dart", "free"],
+      "program": "lib/main_free.dart"
+    }
+  ]
 }
