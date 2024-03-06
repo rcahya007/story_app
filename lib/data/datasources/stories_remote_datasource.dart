@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:story_app/core/constants/variables.dart';
 import 'package:story_app/data/datasources/auth_local_datasource.dart';
@@ -20,9 +22,10 @@ class StoriesRemoteDatasource {
       },
     );
     if (response.statusCode == 200) {
-      return Right(StoriesResponseModel.fromJson(response.body));
+      return Right(StoriesResponseModel.fromJson(jsonDecode(response.body)));
     } else {
-      return Left(StoriesResponseModel.fromJson(response.body).message!);
+      return Left(
+          StoriesResponseModel.fromJson(jsonDecode(response.body)).message!);
     }
   }
 
@@ -34,9 +37,11 @@ class StoriesRemoteDatasource {
       'Authorization': 'Bearer ${dataUser!.loginResult!.token}',
     });
     if (response.statusCode == 200) {
-      return Right(StoriesDetailResponseModel.fromJson(response.body));
+      return Right(
+          StoriesDetailResponseModel.fromJson(jsonDecode(response.body)));
     } else {
-      return Left(StoriesDetailResponseModel.fromJson(response.body).message!);
+      return Left(StoriesDetailResponseModel.fromJson(jsonDecode(response.body))
+          .message!);
     }
   }
 }

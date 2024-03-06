@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -216,122 +218,150 @@ class _DetailStoriesState extends State<DetailStories> {
                   } else {
                     final home = LatLng(data.story!.lat, data.story!.lon);
                     getDataLocation(home);
-                    return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Center(
-                        child: Stack(
-                          children: [
-                            GoogleMap(
-                              initialCameraPosition: CameraPosition(
-                                target: home,
-                                zoom: 18,
-                              ),
-                              markers: {
-                                Marker(
-                                  markerId: const MarkerId('home'),
-                                  position: home,
-                                  infoWindow: InfoWindow(
-                                    title: 'Lokasi',
-                                    snippet: dataLocaiton,
-                                  ),
+                    return Column(
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 16,
+                                  top: 5,
                                 ),
-                              },
-                              zoomControlsEnabled: false,
-                              mapToolbarEnabled: false,
-                              myLocationButtonEnabled: false,
-                            ),
-                            Positioned(
-                              left: 0,
-                              top: 0,
-                              right: 0,
-                              child: Container(
-                                color: Colors.white,
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        context.goNamed('Home');
+                                      },
+                                      child: const Icon(
+                                        Icons.close,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                data.story!.name!,
+                                style: body3,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 5,
+                                ),
                                 child: Column(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 16,
-                                        top: 5,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              context.goNamed('Home');
-                                            },
-                                            child: const Icon(
-                                              Icons.close,
-                                              size: 30,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    Image.network(
+                                      data.story!.photoUrl!,
+                                      fit: BoxFit.cover,
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 200,
                                     ),
-                                    Text(
-                                      data.story!.name!,
-                                      style: body3,
+                                    const SizedBox(
+                                      height: 10,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 16,
-                                        vertical: 5,
-                                      ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          readMore = !readMore;
+                                        });
+                                      },
                                       child: Column(
                                         children: [
-                                          Image.network(
-                                            data.story!.photoUrl!,
-                                            fit: BoxFit.cover,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: 200,
+                                          Text(
+                                            data.story!.description!,
+                                            maxLines: readMore ? null : 2,
+                                            overflow: readMore
+                                                ? TextOverflow.visible
+                                                : TextOverflow.ellipsis,
                                           ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                readMore = !readMore;
-                                              });
-                                            },
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  data.story!.description!,
-                                                  maxLines: readMore ? null : 2,
-                                                  overflow: readMore
-                                                      ? TextOverflow.visible
-                                                      : TextOverflow.ellipsis,
-                                                ),
-                                                data.story!.description!
-                                                            .length >
-                                                        50
-                                                    ? Text(
-                                                        readMore
-                                                            ? 'Read Less'
-                                                            : 'Read More',
-                                                        style: body4.copyWith(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      )
-                                                    : const SizedBox(),
-                                              ],
-                                            ),
-                                          ),
+                                          data.story!.description!.length > 50
+                                              ? Text(
+                                                  readMore
+                                                      ? 'Read Less'
+                                                      : 'Read More',
+                                                  style: body4.copyWith(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                )
+                                              : const SizedBox(),
                                         ],
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              width: MediaQuery.of(context).size.width,
+                              color: whiteColor,
+                              child: const Text(
+                                'Location',
+                                style: title1,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              width: MediaQuery.of(context).size.width,
+                              height: 500,
+                              child: GoogleMap(
+                                initialCameraPosition: CameraPosition(
+                                  target: home,
+                                  zoom: 18,
+                                ),
+                                markers: {
+                                  Marker(
+                                    markerId: const MarkerId('home'),
+                                    position: home,
+                                    infoWindow: InfoWindow(
+                                      title: 'Lokasi',
+                                      snippet: dataLocaiton,
+                                    ),
+                                  ),
+                                },
+                                zoomControlsEnabled: false,
+                                mapToolbarEnabled: false,
+                                myLocationButtonEnabled: false,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 50,
                             )
                           ],
                         ),
-                      ),
+                        // Expanded(
+                        //   child: GoogleMap(
+                        //     initialCameraPosition: CameraPosition(
+                        //       target: home,
+                        //       zoom: 18,
+                        //     ),
+                        //     markers: {
+                        //       Marker(
+                        //         markerId: const MarkerId('home'),
+                        //         position: home,
+                        //         infoWindow: InfoWindow(
+                        //           title: 'Lokasi',
+                        //           snippet: dataLocaiton,
+                        //         ),
+                        //       ),
+                        //     },
+                        //     zoomControlsEnabled: false,
+                        //     mapToolbarEnabled: false,
+                        //     myLocationButtonEnabled: false,
+                        //   ),
+                        // ),
+                      ],
                     );
                   }
                 },

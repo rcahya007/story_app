@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:story_app/data/model/response/user_login_response_model.dart';
 
@@ -6,7 +8,7 @@ class AuthLocalDatasource {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
       'auht_data',
-      authUser.toJson(),
+      jsonEncode(authUser.toJson()),
     );
   }
 
@@ -19,7 +21,7 @@ class AuthLocalDatasource {
     final prefs = await SharedPreferences.getInstance();
     final authData = prefs.getString('auht_data');
     if (authData != null) {
-      return UserLoginResponseModel.fromJson(authData);
+      return UserLoginResponseModel.fromJson(jsonDecode(authData));
     } else {
       return null;
     }

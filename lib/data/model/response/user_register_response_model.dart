@@ -1,5 +1,8 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'user_register_response_model.g.dart';
+
+@JsonSerializable()
 class UserRegisterResponseModel {
   final bool? error;
   final String? message;
@@ -9,19 +12,8 @@ class UserRegisterResponseModel {
     this.message,
   });
 
-  factory UserRegisterResponseModel.fromJson(String str) =>
-      UserRegisterResponseModel.fromMap(json.decode(str));
+  factory UserRegisterResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$UserRegisterResponseModelFromJson(json);
 
-  String toJson() => json.encode(toMap());
-
-  factory UserRegisterResponseModel.fromMap(Map<String, dynamic> json) =>
-      UserRegisterResponseModel(
-        error: json["error"],
-        message: json["message"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "error": error,
-        "message": message,
-      };
+  Map<String, dynamic> toJson() => _$UserRegisterResponseModelToJson(this);
 }

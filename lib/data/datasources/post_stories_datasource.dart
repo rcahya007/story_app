@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
@@ -58,7 +59,7 @@ class PostStoriesDatasource {
 
     if (statusCode == 201) {
       final UploadResponse uploadResponse = UploadResponse.fromJson(
-        responseData,
+        jsonDecode(responseData),
       );
       return right(uploadResponse);
     } else {

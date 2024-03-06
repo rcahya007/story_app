@@ -20,9 +20,12 @@ class AuthRemoteDatasource {
     );
 
     if (response.statusCode == 201) {
-      return Right(UserRegisterResponseModel.fromJson(response.body));
+      return Right(
+        UserRegisterResponseModel.fromJson(jsonDecode(response.body)),
+      );
     } else {
-      return Left(UserRegisterResponseModel.fromJson(response.body).message!);
+      return Left(UserRegisterResponseModel.fromJson(jsonDecode(response.body))
+          .message!);
     }
   }
 
@@ -36,9 +39,10 @@ class AuthRemoteDatasource {
         });
 
     if (response.statusCode == 200) {
-      return Right(UserLoginResponseModel.fromJson(response.body));
+      return Right(UserLoginResponseModel.fromJson(jsonDecode(response.body)));
     } else {
-      return Left(UserLoginResponseModel.fromJson(response.body).message!);
+      return Left(
+          UserLoginResponseModel.fromJson(jsonDecode(response.body)).message!);
     }
   }
 }
